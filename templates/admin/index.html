@@ -13,7 +13,7 @@
             </p>
             {% if not current_user.is_authenticated %}
             <p>
-                <a class="btn btn-primary" href="{{ url_for('security.login') }}">login</a> <a class="btn btn-default" href="{{ url_for('security.register') }}">register</a>
+                <a class="btn btn-primary" href="{{ url_for('security.login') }}">login</a>
             </p>
             {% endif %}
             <p>
