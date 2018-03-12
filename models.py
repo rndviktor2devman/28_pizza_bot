@@ -54,10 +54,27 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(255))
     password = db.Column(db.String(255))
-    email = db.Column(db.Unicode(128))
+    # email = db.Column(db.Unicode(128))
     active = db.Column(db.Boolean())
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
     def __str__(self):
         return self.email
+
+    # Flask-Login integration
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return self.active
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return self.id
+
+    # Required for administrative interface
+    def __unicode__(self):
+        return self.username
