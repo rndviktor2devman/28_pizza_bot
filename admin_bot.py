@@ -1,11 +1,8 @@
-from flask import Flask, url_for, redirect, render_template, request, abort
-from flask_sqlalchemy import SQLAlchemy
-from flask_security import Security, SQLAlchemyUserDatastore, \
-    UserMixin, RoleMixin, login_required, current_user
-import flask_admin
+from flask import url_for, redirect, render_template, request
+from flask_security import SQLAlchemyUserDatastore, current_user
+import flask_admin as fla
 from flask_admin import helpers, expose
 from flask_admin.contrib import sqla
-from flask_admin.form import rules
 import os
 from models import app, User, Role, db, Pizza, Choice
 from wtforms import form, fields, validators
@@ -57,7 +54,7 @@ def init_login():
 
 
 # Create customized index view class that handles login & registration
-class MyAdminIndexView(flask_admin.AdminIndexView):
+class MyAdminIndexView(fla.AdminIndexView):
 
     @expose('/')
     def index(self):
@@ -92,7 +89,7 @@ def index():
 
 init_login()
 
-admin = flask_admin.Admin(app, 'Bot Admin App', index_view=MyAdminIndexView(), base_template='my_master.html')
+admin = fla.Admin(app, 'Bot Admin App', index_view=MyAdminIndexView(), base_template='my_master.html')
 
 admin.add_view(MyViewModel(Pizza, db.session))
 admin.add_view(MyViewModel(Choice, db.session))
