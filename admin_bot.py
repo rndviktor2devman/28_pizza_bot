@@ -4,13 +4,46 @@ import flask_admin as fla
 from flask_admin import helpers, expose
 from flask_admin.contrib import sqla
 import os
-from models import app, User, db, Pizza
+from models import app, User, db, Pizza, Choice
 from wtforms import form, fields, validators
 import flask_login as login
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_admin.form import RenderTemplateWidget
+from flask_admin.contrib.sqla.fields import InlineModelFormList
+from flask_admin.contrib.sqla.form import InlineModelConverter
+from flask_admin.model.form import InlineFormAdmin
+
+
+class CustomInlineFieldListWidget(RenderTemplateWidget):
+    def __init__(self):
+        super(CustomInlineFieldListWidget, self).__init__('field_list.html')
+
+
+class CustomInlineModelFormList(InlineModelFormList):
+    widget = CustomInlineFieldListWidget()
+
+    def display_row_controls(self, field):
+        return False
+
+
+class CustomInlineModelConverter(InlineModelConverter):
+    inline_field_list_type = CustomInlineModelFormList
+
+
+class InlineModelForm(InlineFormAdmin):
+    form_label = 'Choice'
+
+    def __init__(self):
+        return super(InlineModelForm, self).__init__(Choice)
 
 
 class MyViewModel(sqla.ModelView):
+    inline_model_form_converter = CustomInlineModelConverter
+
+    inline_models = (InlineModelForm(),)
+
+    def __init__(self):
+        super(MyViewModel, self).__init__(Pizza, db.session, name='Pizzas')
 
     def is_accessible(self):
         if not current_user.is_active or not current_user.is_authenticated:
@@ -89,7 +122,7 @@ init_login()
 
 admin = fla.Admin(app, 'Bot Admin App', index_view=MyAdminIndexView(), base_template='my_master.html')
 
-admin.add_view(MyViewModel(Pizza, db.session))
+admin.add_view(MyViewModel())
 
 
 if __name__ == '__main__':
