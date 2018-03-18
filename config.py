@@ -2,7 +2,7 @@
 SECRET_KEY = '123456790'
 
 # Create in-memory database
-DATABASE_FILE = 'sample_db.sqlite'
+DATABASE_FILE = 'zz_pizza_catalog.sqlite'
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DATABASE_FILE
 SQLALCHEMY_ECHO = True
 

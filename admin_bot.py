@@ -4,13 +4,10 @@ import flask_admin as fla
 from flask_admin import helpers, expose
 from flask_admin.contrib import sqla
 import os
-from models import app, User, Role, db, Pizza, Choice
+from models import app, User, db, Pizza
 from wtforms import form, fields, validators
 import flask_login as login
 from werkzeug.security import generate_password_hash, check_password_hash
-
-
-user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 
 
 class MyViewModel(sqla.ModelView):
@@ -92,35 +89,12 @@ init_login()
 admin = fla.Admin(app, 'Bot Admin App', index_view=MyAdminIndexView(), base_template='my_master.html')
 
 admin.add_view(MyViewModel(Pizza, db.session))
-admin.add_view(MyViewModel(Choice, db.session))
-
-
-def build_sample_db():
-    """
-    Populate a small db with some example entries.
-    """
-    db.drop_all()
-    db.create_all()
-
-    with app.app_context():
-        user_role = Role(name='user')
-        super_user_role = Role(name='superuser')
-        db.session.add(user_role)
-        db.session.add(super_user_role)
-        db.session.commit()
-        user_datastore.create_user(
-            login='admin',
-            password=generate_password_hash('123456'),
-            roles=[user_role, super_user_role]
-        )
-        db.session.commit()
-    return
 
 
 if __name__ == '__main__':
     app_dir = os.path.realpath(os.path.dirname(__file__))
     database_path = os.path.join(app_dir, app.config['DATABASE_FILE'])
     if not os.path.exists(database_path):
-        build_sample_db()
+        raise Exception('the database was not created')
 
     app.run(debug=True)

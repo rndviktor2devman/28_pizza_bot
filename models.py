@@ -4,6 +4,7 @@ from flask_security import UserMixin, RoleMixin
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from flask_security import SQLAlchemyUserDatastore
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -12,13 +13,6 @@ engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
 session = Session()
-
-
-# pizza_choice = db.Table(
-#     'pizza_choice',
-#     db.Column('pizza_id', db.Integer(), db.ForeignKey('pizza.id')),
-#     db.Column('choice_id', db.Integer(), db.ForeignKey('choice.id'))
-# )
 
 
 class Pizza(Base):
@@ -64,7 +58,6 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(255))
     password = db.Column(db.String(255))
-    # email = db.Column(db.Unicode(128))
     active = db.Column(db.Boolean())
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
@@ -88,3 +81,6 @@ class User(db.Model, UserMixin):
     # Required for administrative interface
     def __unicode__(self):
         return self.username
+
+
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
