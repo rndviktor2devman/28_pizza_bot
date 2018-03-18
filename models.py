@@ -15,7 +15,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-class Pizza(Base):
+class Pizza(db.Model):
     __tablename__ = 'pizza'
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(80), unique=True)
@@ -26,7 +26,7 @@ class Pizza(Base):
         return 'title=%s, description=%s' % (self.title, self.description)
 
 
-class Choice(Base):
+class Choice(db.Model):
     __tablename__ = 'choice'
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(80))

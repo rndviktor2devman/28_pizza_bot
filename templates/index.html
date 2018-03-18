@@ -1,5 +1,12 @@
 <html>
     <body>
+        {% for pizza in pizzas %}
+        <h3>{{ pizza.title }}</h3>
+        {% for choice in pizza.choices %}
+        <h4>{{ choice.title }} - {{ "$%.2f"|format(choice.price) }}</h4>
+        {% endfor %}
+        <hr/>
+        {% endfor %}
         <div>
             <a href="{{ url_for('admin.index') }}">Go to admin!</a>
         </div>

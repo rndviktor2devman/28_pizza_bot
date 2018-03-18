@@ -81,7 +81,8 @@ class MyAdminIndexView(fla.AdminIndexView):
 # Flask views
 @app.route('/')
 def index():
-    return render_template('index.html')
+    pizzas = db.session.query(Pizza).all()
+    return render_template('index.html', pizzas=pizzas)
 
 
 init_login()
