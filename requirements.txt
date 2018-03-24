@@ -2,4 +2,4 @@ pytelegrambotapi==2.3.0
 jinja2==2.8
 Flask-Admin==1.5.0
 Flask-SqlAlchemy==2.3.2
-Flask-Security>=1.7.5
+Flask-Security==1.7.5
