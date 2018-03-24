@@ -30,7 +30,7 @@ class Choice(db.Model):
     __tablename__ = 'choice'
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(80))
-    price = db.Column(db.Numeric)
+    price = db.Column(db.Integer)
     pizza_id = db.Column(db.Integer, db.ForeignKey('pizza.id'))
     pizza = db.relationship("Pizza", back_populates="choices")
 
