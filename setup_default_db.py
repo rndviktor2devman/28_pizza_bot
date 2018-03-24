@@ -18,14 +18,15 @@ def get_json_data_from_file(meals_catalog_path):
         return json.loads(meals_catalog.read())
 
 
-def push_to_db(items):
+def push_to_db(product_items):
     db.drop_all()
     db.create_all()
-    for item in items:
-        pizza = Pizza(title=item['title'], description=item['description'])
+    for product_item in product_items:
+        pizza = Pizza(title=product_item['title'],
+                      description=product_item['description'])
         session.add(pizza)
-        for choise in item['choices']:
-            option = Choice(title=choise['title'], price=choise['price'])
+        for choice in product_item['choices']:
+            option = Choice(title=choice['title'], price=choice['price'])
             pizza.choices.append(option)
         session.add(pizza)
     session.commit()
