@@ -1,19 +1,26 @@
 # Telegram Bot for Pizzeria
 
-[TODO. There will be project description]
+The project is simple example of Pizzeria telegram bot and it's Admin Panel
 
-# How to Use
+## Features
+* Items catalog is stored in mysql db
+* Admin is able to edit products list on Admin Pane
 
-Step 1. Register new telegram bot for development purposes, get the new token. [@BotFather](https://telegram.me/botfather)
+## Usage
+1. Set up required packages
+2. Setup default database(created admin user(admin-123456) and data catalog)
+3. If needed, edit the pizzas list
+4. Retrieve token from bot father and add it to local environment variables
+5. Run the bot application
 
-Step 2. Launch
-
+Example of run on Python3:
 ```
-#!bash
-
-$ # the token below is not actual, you need to register a new one
-$ BOT_TOKEN="110831855:AAE_GbIeVAUwk11O12vq4UeMnl20iADUtM" python3 bot.py
+pip3 install -r requirements
+python3 setup_default_db.py catalog_data.json
+export BOT_TOKEN="token retrieved from bot father"
+python3 bot.py
 ```
+
 # Project Goals
 
 The code is written for educational purposes. Training course for web-developers - [DEVMAN.org](https://devman.org)
