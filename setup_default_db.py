@@ -31,8 +31,8 @@ def push_to_db(product_items):
         session.add(pizza)
     session.commit()
 
-    user_role = Role(role_name='user')
-    super_user_role = Role(role_name='superuser')
+    user_role = Role(name='user')
+    super_user_role = Role(name='superuser')
     db.session.add(user_role)
     db.session.add(super_user_role)
     db.session.commit()

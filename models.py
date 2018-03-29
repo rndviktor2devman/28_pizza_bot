@@ -47,11 +47,11 @@ roles_users = db.Table(
 
 class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer(), primary_key=True)
-    role_name = db.Column(db.String(80), unique=True)
+    name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
 
     def __str__(self):
-        return self.role_name
+        return self.name
 
 
 class User(db.Model, UserMixin):
@@ -64,10 +64,6 @@ class User(db.Model, UserMixin):
 
     def __str__(self):
         return self.email
-
-    # Flask-Login integration
-    def is_authenticated(self):
-        return True
 
     def is_active(self):
         return self.active
