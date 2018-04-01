@@ -1,8 +1,7 @@
-from models import Base, engine, session, Pizza, Choice, Role, user_datastore, db
+from models import Base, engine, session, Pizza, Choice, db
 import json
 import argparse
 import os
-from werkzeug.security import generate_password_hash
 
 
 def get_catalog_path():
@@ -30,18 +29,6 @@ def push_to_db(product_items):
             pizza.choices.append(option)
         session.add(pizza)
     session.commit()
-
-    user_role = Role(name='user')
-    super_user_role = Role(name='superuser')
-    db.session.add(user_role)
-    db.session.add(super_user_role)
-    db.session.commit()
-    user_datastore.create_user(
-        login='admin',
-        password=generate_password_hash('123456'),
-        roles=[user_role, super_user_role]
-    )
-    db.session.commit()
 
 
 if __name__ == '__main__':
