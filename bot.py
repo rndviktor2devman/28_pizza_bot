@@ -10,10 +10,10 @@ if not TOKEN:
 
 bot = telebot.TeleBot(TOKEN)
 
-with open('templates/catalog.md', 'r') as catalog_file:
+with open('bot_templates/catalog.md', 'r') as catalog_file:
     catalog_tmpl = Template(catalog_file.read())
 
-with open('templates/greetings.md', 'r') as greetings_file:
+with open('bot_templates/greetings.md', 'r') as greetings_file:
     greetings_tmpl = Template(greetings_file.read())
 
 
