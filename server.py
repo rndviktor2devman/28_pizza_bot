@@ -46,13 +46,13 @@ class AuthException(HTTPException):
         )
 
 
-class MyViewModel(sqla.ModelView):
+class PizzaViewModel(sqla.ModelView):
     inline_model_form_converter = CustomInlineModelConverter
 
     inline_models = (InlineModelForm(),)
 
     def __init__(self):
-        super(MyViewModel, self).__init__(Pizza, db.session, name='Pizzas')
+        super(PizzaViewModel, self).__init__(Pizza, db.session, name='Pizzas')
 
     @staticmethod
     def check_auth(username, password):
@@ -74,7 +74,7 @@ def index():
 
 
 admin = fla.Admin(app, 'Bot Admin App')
-admin.add_view(MyViewModel())
+admin.add_view(PizzaViewModel())
 
 
 if __name__ == '__main__':
