@@ -1,19 +1,4 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_security import UserMixin, RoleMixin
-from sqlalchemy import create_engine, MetaData
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from flask_security import SQLAlchemyUserDatastore
-
-app = Flask(__name__)
-app.config.from_pyfile('config.py')
-db = SQLAlchemy(app)
-engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-Base = declarative_base()
-Session = sessionmaker(bind=engine)
-session = Session()
-
+from app import db
 
 class Pizza(db.Model):
     __tablename__ = 'pizza'

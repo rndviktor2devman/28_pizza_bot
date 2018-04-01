@@ -1,4 +1,5 @@
-from models import Base, engine, session, Pizza, Choice, db
+from app import db, session, Base, engine
+from models import Pizza, Choice
 import json
 import argparse
 import os

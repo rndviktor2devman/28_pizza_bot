@@ -2,7 +2,8 @@ from flask import url_for, redirect, render_template, request, Response, abort
 import flask_admin as fla
 from flask_admin.contrib import sqla
 import os
-from models import app, db, Pizza, Choice
+from app import app, db
+from models import Pizza, Choice
 from flask_admin.form import RenderTemplateWidget
 from flask_admin.contrib.sqla.fields import InlineModelFormList
 from flask_admin.contrib.sqla.form import InlineModelConverter

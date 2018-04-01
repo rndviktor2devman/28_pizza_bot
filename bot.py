@@ -1,7 +1,8 @@
 import telebot
 from jinja2 import Template
 from os import getenv
-from models import session, Pizza
+from app import session
+from models import Pizza
 from sqlalchemy.orm import joinedload
 
 TOKEN = getenv('BOT_TOKEN')
